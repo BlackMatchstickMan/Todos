@@ -61,5 +61,18 @@
 				}
 			}
 		}
+
+		//4.修改任务
+		//4.1给每一项绑定双击事件ng-dblclick
+		//4.2双击后给当前元素添加一个editing的类
+		//4.3展示出文本框之后，要将当前项的名称展示出来
+		vm.editId=0;
+		vm.edit= function (id) {
+			//双击元素，就让editId变为当前id
+			vm.editId=id;
+		}
+		vm.update= function () {
+			vm.editId=0;
+		}
 	}
 })(window);
