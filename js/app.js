@@ -72,7 +72,18 @@
 			vm.editId=id;
 		}
 		vm.update= function () {
+			//editId和task.id不同，就没有editing类了
 			vm.editId=0;
+		}
+
+		//5.切换选中状态
+		//其他方式：监视allChecked的值
+		vm.allChecked=false;
+		vm.checkAll= function (){
+			//修改taskList中的isCompleted属性
+			vm.taskList.forEach(function (task) {
+				task.isCompleted=vm.allChecked;
+			})
 		}
 	}
 })(window);
