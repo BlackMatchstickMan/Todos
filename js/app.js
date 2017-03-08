@@ -48,6 +48,18 @@
 			//添加任务
 			vm.taskList.push({id:id,name:vm.newTask,isCompleted:false});
 			vm.newTask='';
+		};
+
+		//3.删除一条任务
+		//3.1根据当前项的id
+		vm.remove= function (id) {
+			for (var i=0;i<vm.taskList.length;i++){
+				var task=vm.taskList[i];
+				if(task.id===id){
+					//删除数据，会改变原数组
+					vm.taskList.splice(i,1);
+				}
+			}
 		}
 	}
 })(window);

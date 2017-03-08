@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
     <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 </head>
-
 <body ng-app="todoApp" ng-controller="TodoController">
     <section class="todoapp">
         <header class="header">
             <h1>todos</h1>
-			<!--回车触发，添加内容-->
+			<!--添加form表单，回车触发，添加内容-->
 			<form ng-submit="add()">
 				<input ng-model="newTask" class="new-todo" placeholder="What needs to be done?" autofocus>
 			</form>
@@ -30,7 +29,8 @@
                     <div class="view">
                         <input class="toggle" type="checkbox" ng-model="task.isCompleted">
                         <label ng-bind="task.name"></label>
-                        <button class="destroy"></button>
+						<!--每个任务项都有自己的id，所以在遍历的时候直接将id传入-->
+                        <button ng-click="remove(task.id)" class="destroy"></button>
                     </div>
                     <input class="edit" value="Create a TodoMVC template">
                 </li>
