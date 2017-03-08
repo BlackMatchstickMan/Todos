@@ -103,27 +103,40 @@
 		}
 		//这个值用来控制清除按钮的展示和隐藏状态
 		/*vm.isShow = false;
-		vm.$watch('taskList', function (newval, oldval) {
+		 vm.$watch('taskList', function (newval, oldval) {
+		 var tmp = false;
+		 for (var i = 0; i < vm.taskList.length; i++) {
+		 if (vm.taskList[i].isCompleted) {
+		 tmp = true;
+		 //vm.isShow=true;
+		 break;
+		 }
+		 //vm.isShow=false;
+		 }
+		 vm.isShow = tmp;
+		 }, true);*/
+		vm.isShow = function () {
 			var tmp = false;
 			for (var i = 0; i < vm.taskList.length; i++) {
 				if (vm.taskList[i].isCompleted) {
 					tmp = true;
-					//vm.isShow=true;
-					break;
-				}
-				//vm.isShow=false;
-			}
-			vm.isShow = tmp;
-		}, true);*/
-		vm.isShow= function () {
-			var tmp=false;
-			for(var i=0;i<vm.taskList.length;i++){
-				if (vm.taskList[i].isCompleted){
-					tmp=true;
 					break;
 				}
 			}
 			return tmp;
+		}
+
+
+		//7.显示未完成任务
+		//下列函数返回未完成任务数
+		vm.getUnCompleted = function () {
+			var count = 0;
+			vm.taskList.forEach(function (task) {
+				if (!task.isCompleted) {
+					count++;
+				}
+			})
+			return count;
 		}
 
 	}
