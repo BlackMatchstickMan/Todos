@@ -10,6 +10,7 @@
 </head>
 <body ng-app="todoApp" ng-controller="TodoController">
     <section class="todoapp">
+		<!--任务输入框-->
         <header class="header">
             <h1>todos</h1>
 			<!--添加form表单，回车触发，添加内容-->
@@ -21,6 +22,7 @@
         <section class="main">
             <input ng-change="checkAll()" ng-model="allChecked" class="toggle-all" type="checkbox">
             <label for="toggle-all">Mark all as complete</label>
+			<!--任务列表-->
             <ul class="todo-list">
                 <!-- These are here just to show the structure of the list items -->
                 <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
@@ -55,7 +57,9 @@
                 </li>
             </ul>
             <!-- Hidden if no completed items are left ↓ -->
-            <button class="clear-completed">Clear completed</button>
+			<!--对于某些指令来说，比如ng-show，如果它的值是一个函数，那么每当值发生
+			变化，它都会执行一次-->
+            <button ng-click="clearAll()" ng-show="isShow()" class="clear-completed">Clear completed</button>
         </footer>
     </section>
     <footer class="info">
