@@ -6,10 +6,10 @@
 	//创建模块
 		.module('todoApp', [])
 		//创建控制器
-		.controller('TodoController', ['$scope', TodoController]);
+		.controller('TodoController', ['$scope', '$location', TodoController]);
 
 
-	function TodoController($scope) {
+	function TodoController($scope, $location) {
 		var vm = $scope;
 
 		//1.展示任务列表
@@ -102,6 +102,7 @@
 			vm.taskList = tmp;
 		}
 		//这个值用来控制清除按钮的展示和隐藏状态
+		//$watch太过于损耗性能
 		/*vm.isShow = false;
 		 vm.$watch('taskList', function (newval, oldval) {
 		 var tmp = false;
@@ -138,6 +139,55 @@
 			})
 			return count;
 		}
+
+		//8.显示不同状态的任务
+		//8.1任务有三种状态，所有，未完成，已完成
+		//点击不同的状态图标，显示对应的状态，
+		//8.2 任务图标高亮，添加selected类
+		//
+		//通过 过滤器 来实现这个功能
+		vm.selectedStatus = {isCompleted: undefined};
+
+		//跳转功能实现后就不需要这些事件了，因为a跳转会改变hash值
+		/*
+		 vm.selectAll= function () {
+		 vm.selectedStatus.isCompleted=undefined;
+		 };
+		 vm.selectActive= function () {
+		 vm.selectedStatus.isCompleted=false;
+		 };
+		 vm.selectCompleted= function () {
+		 vm.selectedStatus.isCompleted=true;
+		 }
+		 */
+
+		//9.根据url变化展示相应任务
+		//9.1根据url的hash值来展示不同的任务
+		//9.2先获取到url的hash值
+		//	location.hash
+		//9.3 因为location不是angular的内容，所以需要通过注入的形式
+		//9.4 $watch只能监视$scope里的内容
+		vm.location = $location;
+		vm.$watch('location.url()', function (newval, oldval) {
+			console.log(newval);
+			/*
+			 * /
+			 * /active
+			 * /completed
+			 */
+			switch (newval) {
+				case '#%2F':
+					vm.selectedStatus = {isCompleted: undefined};
+					break;
+				case '#%2Factive':
+					vm.selectedStatus = {isCompleted: false};
+					break;
+				case '#%2Fcompleted':
+					vm.selectedStatus = {isCompleted: true};
+					break;
+			}
+		})
+
 
 	}
 })(window);
